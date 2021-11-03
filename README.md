@@ -46,9 +46,9 @@ Unable to find version for: /tmp/18300/v3-core/audits/tob/contracts/crytic/manti
 Current File Name: /tmp/18300/v3-core/audits/tob/contracts/crytic/echidna/E2E_swap.sol  
 Detected Semantic Version: =0.7.6       
 Detected Possible Compiler Bugs:       
-* SignedImmutables        
-* ABIDecodeTwoDimensionalArrayMemory    
-* KeccakCaching
+* medium - KeccakCaching
+* very low - SignedImmutables        
+* very low - ABIDecodeTwoDimensionalArrayMemory    
 ...
 ```
 
@@ -57,15 +57,15 @@ if you see `ERROR: Unable to Find Version` or `ERROR: Unable to parse SemVersion
 Here is an example of the comment injected at the head of the files:
 ```
 /*
------------Compiler Bug Summary performed by pragmaBugCheck (Written by @Rhynorater)-----------
-Current File Name: /tmp/18300/v3-core/contracts/UniswapV3Factory.sol
-Detected Semantic Version: =0.7.6
-Detected Possible Compiler Bugs:
-* SignedImmutables
-* ABIDecodeTwoDimensionalArrayMemory
-* KeccakCaching
-
------------Thanks for using pragmaBugCheck!-----------
-*/
+ -----------Compiler Bug Summary performed by pragmaBugCheck (Written by @Rhynorater)-----------
+ Current File Name: /tmp/18300/v3-core/audits/tob/contracts/crytic/echidna/E2E_swap.sol
+ Detected Semantic Version: =0.7.6
+ Detected Possible Compiler Bugs:
+ * medium - KeccakCaching
+ * very low - SignedImmutables
+ * very low - ABIDecodeTwoDimensionalArrayMemory
+ 
+ -----------Thanks for using pragmaBugCheck!-----------
+ */
 ```
 
