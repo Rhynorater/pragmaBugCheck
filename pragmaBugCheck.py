@@ -72,7 +72,7 @@ def getBugs(pairs):
     retList = []
     for f, semver in pairs:
         if semver == None or len(re.findall(multipleRegex, semver)) > 1:
-            retList.append((f, semver, "Unable to Find Version"))
+            retList.append((f, semver, ["ERROR: Unable to Find Version"]))
             continue
         found = False
         semver = semver.replace(" ", "")
@@ -83,7 +83,7 @@ def getBugs(pairs):
                 found = True
                 break
         if not found:
-            retList.append((f, semver, "Unable to Parse SemVersion"))
+            retList.append((f, semver, ["ERROR: Unable to Parse SemVersion"]))
     return retList
 
 def writeComments(bugData):
