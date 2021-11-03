@@ -43,6 +43,13 @@ Detected Possible Compiler Bugs:
 
 if you see `ERROR: Unable to Find Version` or `ERROR: Unable to parse SemVersion` then this tool was unable to parse the file's pragma. 
 
-
+## Installation
+Simply run the following commands:
+```
+pip3 install requests
+git clone https://github.com/Rhynorater/pragmaBugCheck/
+```
+then `cd` into the root directory of the project you are auditing and run:
+/PATH/TO/pragmaBugCheck/pragmaBugCheck.py
 
 
