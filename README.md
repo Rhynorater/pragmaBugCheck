@@ -14,9 +14,20 @@ pragma solidity ^0.8.0
 ```
 If it doesn't work for some of your projects please open an issue and let me know or feel free to shoot over a Pull Request. 
 
+## Installation
+Simply run the following commands:
+```
+pip3 install requests
+git clone https://github.com/Rhynorater/pragmaBugCheck/
+```
+then `cd` into the root directory of the project you are auditing and run:
+```
+/PATH/TO/pragmaBugCheck/pragmaBugCheck.py
+```
+
 ## Usage
 To use the tool, simply run it from the root directory of a project you are auditing. For example:
-```bash
+```
 justin@Stealth: 18300 » git clone https://github.com/Uniswap/v3-core
 Cloning into 'v3-core'...
 remote: Enumerating objects: 8082, done.
@@ -43,13 +54,18 @@ Detected Possible Compiler Bugs:
 
 if you see `ERROR: Unable to Find Version` or `ERROR: Unable to parse SemVersion` then this tool was unable to parse the file's pragma. 
 
-## Installation
-Simply run the following commands:
+Here is an example of the comment injected at the head of the files:
 ```
-pip3 install requests
-git clone https://github.com/Rhynorater/pragmaBugCheck/
-```
-then `cd` into the root directory of the project you are auditing and run:
-/PATH/TO/pragmaBugCheck/pragmaBugCheck.py
+/*
+-----------Compiler Bug Summary performed by pragmaBugCheck (Written by @Rhynorater)-----------
+Current File Name: /tmp/18300/v3-core/contracts/UniswapV3Factory.sol
+Detected Semantic Version: =0.7.6
+Detected Possible Compiler Bugs:
+* SignedImmutables
+* ABIDecodeTwoDimensionalArrayMemory
+* KeccakCaching
 
+-----------Thanks for using pragmaBugCheck!-----------
+*/
+```
 
