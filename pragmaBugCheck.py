@@ -5,6 +5,7 @@ import glob
 import re
 import requests
 import math
+import json
 
 comment = """/*
 -----------Compiler Bug Summary performed by pragmaBugCheck (Written by @Rhynorater)-----------
@@ -20,6 +21,26 @@ Detected Possible Compiler Bugs:
 def roundup(x):
     return int(math.ceil(x / 100.0)) * 100
 
+
+def customSort(a):
+    aScore=0
+    if "high" in a:
+        aScore+=5
+    elif "medium" in a:
+        aScore+=3
+    elif "very low" in a:
+        aScore+=1
+    elif "low" in a:
+        aScore+=2
+    return aScore
+
+def addSeverity(bugList):
+    retList = []
+    for b in bugList:
+        retList.append(bugSeverity[b] + " - " + b)
+    retList.sort(key=customSort, reverse=True)
+    return retList
+
 def caret(version):
     s = int("".join(version))
     bugs = []
@@ -27,10 +48,10 @@ def caret(version):
         svn = int(sv.replace(".", ""))
         if (svn >= s and svn < roundup(s)):
             bugs+= bugsByVersion[sv]['bugs']
-    return list(set(bugs))
+    return addSeverity(list(set(bugs)))
 
 def versionOnly(version):
-    return bugsByVersion[".".join(version)]['bugs']
+    return addSeverity(bugsByVersion[".".join(version)]['bugs'])
 
 def geq(version):
     s = int("".join(version))
@@ -39,10 +60,14 @@ def geq(version):
         svn = int(sv.replace(".", ""))
         if (svn >= s):
             bugs+= bugsByVersion[sv]['bugs']
-    return list(set(bugs))
+    return addSeverity(list(set(bugs)))
 
 
 bugsByVersion = requests.get("https://raw.githubusercontent.com/ethereum/solidity/develop/docs/bugs_by_version.json").json()
+bugs = requests.get("https://raw.githubusercontent.com/ethereum/solidity/develop/docs/bugs.json").json()
+bugSeverity = {}
+for b in bugs:
+    bugSeverity[b['name']] = b['severity']
 
 multipleRegex = "(\d+)\.(\d+)\.(\d+)"
 parser = {"^\^(\d+)\.(\d+)\.(\d+)$":caret, "^=(\d+)\.(\d+)\.(\d+)$": versionOnly, "^(\d+)\.(\d+)\.(\d+)$": versionOnly, "^>=(\d+)\.(\d+)\.(\d+)$": geq}
